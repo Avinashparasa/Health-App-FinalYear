@@ -1,25 +1,16 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 
 //components
 import WorkoutDetails from "../components/WorkoutDetails";
 import AddWorkout from "../components/AddWorkout";
 
-//redux slices
-import { allWorkouts } from "../redux/workoutSlice";
+//custom hooks
+import useAllWorkout from "../Hooks/useAllWorkout";
 
 const Home = () => {
-  const dispatch = useDispatch();
+  useAllWorkout();
   const fullWorkouts = useSelector((store) => store.workout.getWorkouts);
-
-  useEffect(() => {
-    const fetchWorkoutsData = async () => {
-      const result = await fetch("/workout");
-      const data = await result.json();
-      dispatch(allWorkouts(data));
-    };
-    fetchWorkoutsData();
-  }, []);
 
   return (
     <div className="p-10 md:grid md:grid-cols-12">
