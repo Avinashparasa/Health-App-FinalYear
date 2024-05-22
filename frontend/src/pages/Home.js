@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 //components
 import WorkoutDetails from "../components/WorkoutDetails";
 import AddWorkout from "../components/AddWorkout";
 
+//redux slices
+import { allWorkouts } from "../redux/workoutSlice";
+
 const Home = () => {
-  const [workouts, setWorkouts] = useState(null);
+  const dispatch = useDispatch();
+  const fullWorkouts = useSelector((store) => store.workout.getWorkouts);
 
   useEffect(() => {
     const fetchWorkoutsData = async () => {
       const result = await fetch("/workout");
       const data = await result.json();
-      setWorkouts(data);
+      dispatch(allWorkouts(data));
     };
     fetchWorkoutsData();
   }, []);
@@ -19,8 +24,8 @@ const Home = () => {
   return (
     <div className="p-10 md:grid md:grid-cols-12">
       <div className="md:col-span-7">
-        {workouts &&
-          workouts.map((workout) => (
+        {fullWorkouts &&
+          fullWorkouts.map((workout) => (
             <WorkoutDetails key={workout._id} data={workout} />
           ))}
       </div>
