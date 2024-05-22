@@ -1,10 +1,16 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
+//redux slices
+import { newWorkout } from "../redux/workoutSlice";
 
 const AddWorkout = () => {
   const [title, setTitle] = useState("");
   const [reps, setResp] = useState("");
   const [load, setLoad] = useState("");
   const [error, setError] = useState(null);
+
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +34,7 @@ const AddWorkout = () => {
       setResp("");
       setLoad("");
       setError(null);
-      console.log("new workout is added to the list of workout ", json);
+      dispatch(newWorkout(json));
     }
   };
 
