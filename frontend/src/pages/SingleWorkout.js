@@ -1,36 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link, useParams } from "react-router-dom";
 
 //component
 import EditWorkout from "../components/EditWorkout";
 
+//custom hook
+import useSingleWorkout from "../Hooks/useSingleWorkout";
+
 const SingleWorkout = () => {
   const { id } = useParams();
-  const [workout, setWorkout] = useState(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchWorkout = async () => {
-      try {
-        const response = await fetch("/workout/" + id, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        const json = await response.json();
-        if (!response.ok) {
-          setError(json.error);
-        } else {
-          setWorkout(json);
-        }
-      } catch (err) {
-        setError("An error occurred while fetching the workout data.");
-      }
-    };
-
-    fetchWorkout();
-  }, [id]);
+  const { error, workout } = useSingleWorkout(id);
 
   if (error) {
     return (
