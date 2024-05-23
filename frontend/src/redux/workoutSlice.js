@@ -6,6 +6,7 @@ export const workoutSlice = createSlice({
     getWorkouts: [],
     addWorkout: null,
     removeWorkout: null,
+    editWorkout: null,
   },
   reducers: {
     allWorkouts: (state, action) => {
@@ -21,9 +22,22 @@ export const workoutSlice = createSlice({
         (workout) => workout._id !== action.payload._id
       );
     },
+    updateWorkout: (state, action) => {
+      state.editWorkout = action.payload;
+      const index = state.getWorkouts.findIndex(
+        (workout) => workout._id === action.payload._id
+      );
+      if (index !== -1) {
+        state.getWorkouts[index] = {
+          ...state.getWorkouts[index],
+          ...action.payload,
+        };
+      }
+    },
   },
 });
 
-export const { allWorkouts, newWorkout, deleteWorkout } = workoutSlice.actions;
+export const { allWorkouts, newWorkout, deleteWorkout, updateWorkout } =
+  workoutSlice.actions;
 
 export default workoutSlice.reducer;
