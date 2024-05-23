@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 //redux slices
 import { deleteWorkout } from "../redux/workoutSlice";
@@ -32,7 +33,12 @@ const WorkoutDetails = ({ data }) => {
         <p className="font-medium">Load (kg): {data.load}</p>
         <p className="font-medium">{data.createdAt}</p>
       </div>
-      <div className="pt-2">
+      <div className="pt-2 flex flex-col">
+        <Link to={"/allworkout/" + data._id}>
+          <button className="bg-green-700 text-white p-2 mb-2 rounded">
+            View
+          </button>
+        </Link>
         <button
           className="bg-red-700 text-white rounded p-2"
           onClick={deleteData}
