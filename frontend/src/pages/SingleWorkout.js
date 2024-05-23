@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
+//component
+import EditWorkout from "../components/EditWorkout";
+
 const SingleWorkout = () => {
   const { id } = useParams();
   const [workout, setWorkout] = useState(null);
@@ -48,11 +51,16 @@ const SingleWorkout = () => {
 
   return (
     <div className="m-5">
-      <div className="text-center md:p-2 pb-5">
-        <h4 className="text-blue-600 font-semibold text-lg">{workout.title}</h4>
-        <p className="font-medium">Number of reps: {workout.reps}</p>
-        <p className="font-medium">Load (kg): {workout.load}</p>
-        <p className="font-medium">{workout.createdAt}</p>
+      <div className="md:p-2 pb-5 md:grid md:grid-cols-12">
+        <div className="md:col-span-7 md:m-4 md:p-10">
+          <h4 className="text-blue-600 font-semibold text-lg">
+            {workout.title}
+          </h4>
+          <p className="font-medium">Number of reps: {workout.reps}</p>
+          <p className="font-medium">Load (kg): {workout.load}</p>
+          <p className="font-medium">{workout.createdAt}</p>
+        </div>
+        <EditWorkout data={workout} />
       </div>
       <Link to="/allworkout">
         <button className="bg-black text-white p-2 rounded">Back</button>
