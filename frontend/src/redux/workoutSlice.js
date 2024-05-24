@@ -28,10 +28,7 @@ export const workoutSlice = createSlice({
         (workout) => workout._id === action.payload._id
       );
       if (index !== -1) {
-        state.getWorkouts[index] = {
-          ...state.getWorkouts[index],
-          ...action.payload,
-        };
+        state.getWorkouts[index] = action.payload;
       }
     },
   },

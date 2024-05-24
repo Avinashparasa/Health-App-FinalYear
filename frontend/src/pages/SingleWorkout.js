@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 //component
 import EditWorkout from "../components/EditWorkout";
@@ -9,7 +10,12 @@ import useSingleWorkout from "../Hooks/useSingleWorkout";
 
 const SingleWorkout = () => {
   const { id } = useParams();
-  const { error, workout } = useSingleWorkout(id);
+  const { error, workout: initialWorkout } = useSingleWorkout(id);
+
+  const workout =
+    useSelector((store) =>
+      store.workout.getWorkouts.find((workout) => workout._id === id)
+    ) || initialWorkout;
 
   if (error) {
     return (
