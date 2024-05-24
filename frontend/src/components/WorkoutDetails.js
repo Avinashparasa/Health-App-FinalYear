@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 //redux slices
 import { deleteWorkout } from "../redux/workoutSlice";
@@ -31,7 +32,9 @@ const WorkoutDetails = ({ data }) => {
         <h4 className="text-blue-600 font-semibold text-lg">{data.title}</h4>
         <p className="font-medium">Number of reps: {data.reps}</p>
         <p className="font-medium">Load (kg): {data.load}</p>
-        <p className="font-medium">{data.createdAt}</p>
+        <p className="font-medium">
+          {formatDistanceToNow(new Date(data.createdAt), { addSuffix: true })}
+        </p>
       </div>
       <div className="pt-2 md:flex md:flex-col">
         <Link to={"/allworkout/" + data._id}>

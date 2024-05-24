@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 
 //component
 import EditWorkout from "../components/EditWorkout";
@@ -47,7 +48,11 @@ const SingleWorkout = () => {
           </h4>
           <p className="font-medium">Number of reps: {workout.reps}</p>
           <p className="font-medium">Load (kg): {workout.load}</p>
-          <p className="font-medium">{workout.createdAt}</p>
+          <p className="font-medium">
+            {formatDistanceToNow(new Date(workout.createdAt), {
+              addSuffix: true,
+            })}
+          </p>
         </div>
         <EditWorkout data={workout} />
       </div>
