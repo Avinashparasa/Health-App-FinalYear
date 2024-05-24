@@ -33,17 +33,12 @@ const WorkoutDetails = ({ data }) => {
         <p className="font-medium">Load (kg): {data.load}</p>
         <p className="font-medium">{data.createdAt}</p>
       </div>
-      <div className="pt-2 flex flex-col">
+      <div className="pt-2 md:flex md:flex-col">
         <Link to={"/allworkout/" + data._id}>
-          <button className="bg-green-700 text-white p-2 mb-2 rounded">
-            View
-          </button>
+          <button className="material-symbols-outlined">visibility</button>
         </Link>
-        <button
-          className="bg-red-700 text-white rounded p-2"
-          onClick={deleteData}
-        >
-          Delete
+        <button className="material-symbols-outlined" onClick={deleteData}>
+          delete
         </button>
       </div>
       {error && (
