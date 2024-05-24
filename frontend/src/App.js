@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import FootBar from "./components/FootBar";
 import SingleWorkout from "./pages/SingleWorkout";
+import ErrorPage from "./pages/ErrorPage";
 
 const AppComponent = () => {
   return (
@@ -21,6 +22,7 @@ const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <AppComponent />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
