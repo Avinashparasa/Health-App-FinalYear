@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const workoutRoutes = require("./routes/workouts");
+const userRoutes = require("./routes/user");
 
 //express app
 const app = express();
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
   res.json({ msg: "This is the home page of the fitness application" });
 });
 app.use("/", workoutRoutes);
+app.use("/api/user", userRoutes);
 
 const port = process.env.PORT;
 //connecting to database
