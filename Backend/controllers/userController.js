@@ -8,7 +8,15 @@ const createToken = (_id) => {
 };
 
 module.exports.userLogin = async (req, res) => {
-  res.status(200).json({ message: "user login" });
+  const { email, password } = req.body;
+  try {
+    const user = await User.login(email, password);
+    //create token
+    const token = createToken(user._id);
+    res.status(200).json({ email, user, token });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 module.exports.userRegister = async (req, res) => {
