@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 //redux slices
-import { userRegister } from "../redux/authSlice";
+import { userLogin } from "../redux/authSlice";
 import { Link } from "react-router-dom";
 
-const UserRegister = () => {
+const UserLogin = () => {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -16,41 +15,30 @@ const UserRegister = () => {
     e.preventDefault();
     setError(null);
 
-    const newUser = { name, email, password };
-
-    const responseNewUser = await fetch("/api/user/register", {
+    //login the user
+    const userLoginInfo = { email, password };
+    const responseUserLogin = await fetch("/api/user/login", {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(newUser),
+      body: JSON.stringify(userLoginInfo),
     });
 
-    const jsonNewUser = await responseNewUser.json();
-    if (!responseNewUser.ok) {
-      setError(jsonNewUser.error);
+    const jsonUserLogin = await responseUserLogin.json();
+
+    if (!responseUserLogin.ok) {
+      setError(jsonUserLogin.error);
     } else {
-      dispatch(userRegister(jsonNewUser));
+      dispatch(userLogin(jsonUserLogin));
     }
   };
-
   return (
     <div className="my-10 flex justify-center">
       <form className="md:w-1/2 w-10/12 my-5" onSubmit={handleSubmit}>
         <h3 className="font-bold text-2xl text-blue-700 md:pt-10 mb-5">
-          Sign Up
+          Sign In
         </h3>
-
-        <div className="mb-2">
-          <label className="text-blue-400 font-semibold  block mb-2">
-            User Name
-          </label>
-          <input
-            type="text"
-            className="w-full md:w-10/12 h-10 outline outline-1 rounded outline-gray-200"
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
 
         <div className="mb-2">
           <label className="text-blue-400 font-semibold  block mb-2">
@@ -73,10 +61,13 @@ const UserRegister = () => {
           />
         </div>
         <button className="bg-blue-700 text-white p-2 rounded mb-2">
-          Sign Up
+          Sign In
         </button>
+
         <p className="text-blue-400 font-semibold mb-2 cursor-pointer">
-          <Link to={"/user/login"}>Already registered? Sign In Now.</Link>
+          <Link to={"/user/register"}>
+            New to Fitness Planner? Sign up now.
+          </Link>
         </p>
         {error && (
           <p className="mt-4 text-red-600 outline outline-1 bg-red-50 p-2 rounded">
@@ -88,4 +79,4 @@ const UserRegister = () => {
   );
 };
 
-export default UserRegister;
+export default UserLogin;

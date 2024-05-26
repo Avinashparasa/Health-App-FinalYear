@@ -8,6 +8,7 @@ import FootBar from "./components/FootBar";
 import SingleWorkout from "./pages/SingleWorkout";
 import ErrorPage from "./pages/ErrorPage";
 import UserRegister from "./pages/UserRegister";
+import UserLogin from "./pages/UserLogin";
 
 const AppComponent = () => {
   return (
@@ -40,6 +41,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/user/register",
         element: <UserRegister />,
+      },
+      {
+        path: "/user/login",
+        element: <UserLogin />,
       },
     ],
   },
