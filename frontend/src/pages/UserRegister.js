@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 //redux slices
 import { userRegister } from "../redux/authSlice";
-import { Link } from "react-router-dom";
 
 const UserRegister = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,6 +33,7 @@ const UserRegister = () => {
       setError(jsonNewUser.error);
     } else {
       dispatch(userRegister(jsonNewUser));
+      navigate("/allworkout");
     }
   };
 
