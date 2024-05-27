@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+//redux slices
+import { userLogout } from "../redux/authSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const [menu, setMenu] = useState(false);
 
   const displayMenu = () => {
     setMenu(!menu);
+  };
+
+  const handleLogout = () => {
+    dispatch(userLogout());
   };
 
   return (
@@ -34,6 +43,12 @@ const Navbar = () => {
           </button>
           <button className="bg-blue-700 text-white rounded p-2 mr-2 block lg:inline-block lg:mt-0 mt-4">
             <Link to={"/user/login"}>Sign In</Link>
+          </button>
+          <button
+            className="text-blue-700 outline outline-1 outline-blue-700 rounded p-2 mr-2 block lg:inline-block lg:mt-0 mt-4"
+            onClick={handleLogout}
+          >
+            <Link to={"/"}>Logout</Link>
           </button>
         </div>
       </div>
