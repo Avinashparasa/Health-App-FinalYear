@@ -1,10 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+//load user data from local storage
+const loadUserFromLocalStorage = () => {
+  try {
+    const serializedUser = localStorage.getItem("user");
+    return serializedUser ? JSON.parse(serializedUser) : null;
+  } catch (e) {
+    return null;
+  }
+};
+
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
-    register: null,
-    login: null,
+    register: loadUserFromLocalStorage(),
+    login: loadUserFromLocalStorage(),
   },
   reducers: {
     userRegister: (state, action) => {
