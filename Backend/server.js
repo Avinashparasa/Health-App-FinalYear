@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
 
 const workoutRoutes = require("./routes/workouts");
 const userRoutes = require("./routes/user");
@@ -17,12 +18,13 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(cookieParser());
 //routers
 app.get("/", (req, res) => {
   res.json({ msg: "This is the home page of the fitness application" });
 });
-app.use("/", workoutRoutes);
 app.use("/api/user", userRoutes);
+app.use("/", workoutRoutes);
 
 const port = process.env.PORT;
 //connecting to database
