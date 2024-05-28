@@ -15,12 +15,23 @@ const AddWorkout = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const getToken = () => {
+      return localStorage.getItem("token");
+    };
+
+    const token = getToken();
+    if (!token) {
+      setError("User is not authenticated");
+      return;
+    }
+
     const workout = { title, reps, load };
 
     const response = await fetch("/workout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(workout),
     });
