@@ -14,10 +14,21 @@ const EditWorkout = ({ data }) => {
   const editWorkout = async (e) => {
     e.preventDefault();
 
+    const getToken = () => {
+      return localStorage.getItem("token");
+    };
+
+    const token = getToken();
+    if (!token) {
+      setError("User is not authenticated");
+      return;
+    }
+
     const response = await fetch("/workout/" + data._id, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
         title,

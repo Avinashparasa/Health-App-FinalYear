@@ -21,17 +21,20 @@ export const authSlice = createSlice({
       state.register = action.payload;
       // Save user data to local storage
       localStorage.setItem("user", JSON.stringify(action.payload));
+      localStorage.setItem("token", action.payload.token);
     },
     userLogin: (state, action) => {
       state.login = action.payload;
       // Save user data to local storage
       localStorage.setItem("user", JSON.stringify(action.payload));
+      localStorage.setItem("token", action.payload.token);
     },
     userLogout: (state, action) => {
       state.register = null;
       state.login = null;
       //removing the user data from local storage
       localStorage.removeItem("user");
+      localStorage.removeItem("token");
     },
   },
 });

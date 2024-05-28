@@ -10,11 +10,22 @@ const WorkoutDetails = ({ data }) => {
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
 
+  const getToken = () => {
+    return localStorage.getItem("token");
+  };
+
   const deleteData = async () => {
+    const token = getToken();
+    if (!token) {
+      setError("User is not authenticated");
+      return;
+    }
+
     const response = await fetch("/workout/" + data._id, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     });
