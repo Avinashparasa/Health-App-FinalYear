@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const Workout = require("../models/workoutModel");
 
 module.exports.getAllWorkout = async (req, res) => {
-  const workouts = await Workout.find({}).sort({ createdAt: -1 });
+  const user_id = req.user._id;
+  const workouts = await Workout.find({ user_id }).sort({ createdAt: -1 });
   res.status(200).json(workouts);
 };
 
@@ -12,7 +13,7 @@ module.exports.getSingleWorkout = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "workout not found" });
   }
-  const workouts = await Workout.findById(id);
+  const workouts = await Workout.findOne({ _id: id, user_id: req.user._id });
   if (!workouts) {
     return res.status(404).json({ error: "workout not found" });
   }
@@ -22,7 +23,9 @@ module.exports.getSingleWorkout = async (req, res) => {
 module.exports.addNewWorkout = async (req, res) => {
   const { title, reps, load } = req.body;
   try {
-    const workout = await Workout.create({ title, reps, load });
+    const user_id = req.user._id;
+
+    const workout = await Workout.create({ title, reps, load, user_id });
     res.status(200).json(workout);
   } catch (error) {
     res.status(400).json({ err: error.message });
@@ -34,7 +37,10 @@ module.exports.editWorkout = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "workout not found" });
   }
-  const workouts = await Workout.findOneAndUpdate({ _id: id }, { ...req.body });
+  const workouts = await Workout.findOneAndUpdate(
+    { _id: id, user_id: req.user._id },
+    { ...req.body }
+  );
   if (!workouts) {
     return res.status(404).json({ error: "No workout found" });
   }
@@ -46,7 +52,10 @@ module.exports.deleteWorkout = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "workout not found" });
   }
-  const workouts = await Workout.findByIdAndDelete(id);
+  const workouts = await Workout.findOneAndDelete({
+    _id: id,
+    user_id: req.user._id,
+  });
   if (!workouts) {
     return res.status(404).json({ error: "No workout found" });
   }
