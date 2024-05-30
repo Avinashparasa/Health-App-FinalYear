@@ -9,6 +9,8 @@ import SingleWorkout from "./pages/SingleWorkout";
 import ErrorPage from "./pages/ErrorPage";
 import UserRegister from "./pages/UserRegister";
 import UserLogin from "./pages/UserLogin";
+import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
 
 const AppComponent = () => {
   return (
@@ -32,19 +34,35 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/allworkout",
-        element: <Home />,
+        element: (
+          <ProtectedRoute redirectTo="/user/register">
+            <Home />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/allworkout/:id",
-        element: <SingleWorkout />,
+        element: (
+          <ProtectedRoute redirectTo="/user/register">
+            <SingleWorkout />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/user/register",
-        element: <UserRegister />,
+        element: (
+          <PublicRoute redirectTo="/allworkout">
+            <UserRegister />
+          </PublicRoute>
+        ),
       },
       {
         path: "/user/login",
-        element: <UserLogin />,
+        element: (
+          <PublicRoute redirectTo="/allworkout">
+            <UserLogin />
+          </PublicRoute>
+        ),
       },
     ],
   },
