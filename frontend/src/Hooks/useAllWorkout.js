@@ -13,11 +13,14 @@ const useAllWorkout = () => {
     if (token) {
       setIsAuthenticated(true);
       const fetchWorkoutsData = async () => {
-        const result = await fetch("/workout", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const result = await fetch(
+          "https://fitnessplanner-uxlg.onrender.com/workout",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         const data = await result.json();
         dispatch(allWorkouts(data));
       };

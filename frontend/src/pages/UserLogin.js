@@ -19,13 +19,16 @@ const UserLogin = () => {
 
     //login the user
     const userLoginInfo = { email, password };
-    const responseUserLogin = await fetch("/api/user/login", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(userLoginInfo),
-    });
+    const responseUserLogin = await fetch(
+      "https://fitnessplanner-uxlg.onrender.com/api/user/login",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userLoginInfo),
+      }
+    );
 
     const jsonUserLogin = await responseUserLogin.json();
 
