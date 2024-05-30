@@ -12,7 +12,13 @@ const app = express();
 
 //middleware
 app.use(express.json());
-app.use(cors());
+// Configure CORS
+app.use(
+  cors({
+    origin: "https://fitness-planner.netlify.app/",
+    credentials: true,
+  })
+);
 
 app.use((req, res, next) => {
   console.log("path : " + req.path);
