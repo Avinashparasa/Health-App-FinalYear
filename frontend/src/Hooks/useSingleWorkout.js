@@ -15,6 +15,7 @@ const useSingleWorkout = (id) => {
 
       try {
         const token = user.token;
+        console.log("Fetching workout with token:", token); // to check
         const response = await fetch(
           `https://fitnessplanner-uxlg.onrender.com/workout/${id}`,
           {
@@ -26,6 +27,7 @@ const useSingleWorkout = (id) => {
           }
         );
         const json = await response.json();
+        console.log("Response:", json); // to check
         if (!response.ok) {
           setError(json.error);
         } else {

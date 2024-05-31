@@ -10,6 +10,9 @@ module.exports.getAllWorkout = async (req, res) => {
 
 module.exports.getSingleWorkout = async (req, res) => {
   const { id } = req.params;
+  console.log("Workout ID:", id); // to check
+  console.log("User ID:", req.user._id); // to check
+
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: "workout not found" });
   }
