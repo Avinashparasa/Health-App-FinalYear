@@ -20,7 +20,7 @@ const UserRegister = () => {
 
     const newUser = { name, email, password };
 
-    const responseNewUser = await fetch("https://fitnessplanner-uxlg.onrender.com/api/user/register", {
+    const responseNewUser = await fetch("/api/user/register", {
       method: "POST",
       headers: {
         "content-type": "application/json",

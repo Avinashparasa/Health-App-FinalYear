@@ -14,20 +14,15 @@ const useSingleWorkout = (id) => {
       }
 
       try {
-        const token = user.token;
-        console.log("Fetching workout with token:", token); // to check
-        const response = await fetch(
-          `https://fitnessplanner-uxlg.onrender.com/workout/${id}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch("/workout/" + id, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.token}`,
+          },
+        });
         const json = await response.json();
-        console.log("Response:", json); // to check
+
         if (!response.ok) {
           setError(json.error);
         } else {
@@ -39,7 +34,7 @@ const useSingleWorkout = (id) => {
     };
 
     fetchWorkout();
-  }, [id, user]);
+  }, [id]);
 
   return { workout, error };
 };

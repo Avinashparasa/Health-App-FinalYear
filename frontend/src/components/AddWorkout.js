@@ -27,17 +27,14 @@ const AddWorkout = () => {
 
     const workout = { title, reps, load };
 
-    const response = await fetch(
-      "https://fitnessplanner-uxlg.onrender.com/workout",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(workout),
-      }
-    );
+    const response = await fetch("/workout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(workout),
+    });
 
     const json = await response.json();
 

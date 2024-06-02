@@ -21,17 +21,14 @@ const WorkoutDetails = ({ data }) => {
       return;
     }
 
-    const response = await fetch(
-      "https://fitnessplanner-uxlg.onrender.com/workout/" + data._id,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-      }
-    );
+    const response = await fetch("/workout/" + data._id, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
     const json = await response.json();
 
     if (!response.ok) {
