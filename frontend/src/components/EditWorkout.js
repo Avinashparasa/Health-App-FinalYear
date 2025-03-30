@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-//slice
+
 import { updateWorkout } from "../redux/workoutSlice";
 
 const EditWorkout = ({ data }) => {
