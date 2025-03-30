@@ -5,7 +5,7 @@ FitnessPlanner is a comprehensive web application designed to help users manage 
 ## Deployment
 To deploy this project run
 ```
-git clone https://github.com/Ashlyn-Joshy/FitnessPlanner.git
+git clone https://github.com/Avinashparasa/Health-App-FinalYear
 ```
 Enter into the project folder.
 
